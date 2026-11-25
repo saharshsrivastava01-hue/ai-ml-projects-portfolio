@@ -38,6 +38,20 @@ footer{max-width:1260px;margin:auto;padding:0 20px 25px;color:#7286a2;font-size:
  <div class="salesbox"><div class="eyebrow">For freelancers & small teams</div><h2>Turn scattered follow-ups into a clear sales process.</h2><p>NEXUS ClientConnect brings prospect records, deal stages, reminders and ready-to-edit communication drafts into one focused workspace. Start with the free browser version; export your data whenever you need.</p><div class="selling-points"><span>✓ Lead and client directory</span><span>✓ Visual sales stages</span><span>✓ Follow-up agenda</span><span>✓ CSV and JSON export</span></div><div class="row" style="margin-top:10px"><button id="copyPitch">Copy product pitch</button><button class="ghost" id="shareSales">Share product</button></div></div>
  <div class="salesbox"><div class="eyebrow">Simple proposed plans</div><h2>Pricing concept</h2><div class="plans"><div class="plan"><b>Starter</b><strong>Free</strong><small>Current local-first browser version. No account or cloud sync.</small></div><div class="plan"><b>Pro · planned</b><strong>₹499<span style="font-size:10px">/mo</span></strong><small>Proposed price only. Cloud sync, team access and billing are not available yet.</small></div></div><p class="sales-note">Transparency: paid plans are a pricing proposal, not an active checkout or subscription. Do not accept payment for features that are not live.</p></div>
 </section>
+
+<section class="panel" id="launchKit" style="margin:0 0 18px"><div class="head"><h2>🚀 Launch & distribution kit</h2><span class="pill">READY-TO-SHARE CONTENT</span></div><p class="sub">Use these honest product messages to introduce NEXUS to relevant freelancers, consultants and small-business owners. Share in communities only where promotion is permitted.</p>
+<div class="fieldgrid"><div><label>LinkedIn launch post</label><textarea id="postLinkedIn" rows="5" readonly>Freelancers and small-business owners: how do you keep track of every prospect and follow-up?
+
+I’m building NEXUS ClientConnect — a simple workspace for managing contacts, sales stages, reminders and client communication drafts.
+
+The starter version is free to try and stores data in your browser. It currently supports CSV/JSON export. Cloud accounts and team features are still being developed.
+
+Try it: https://nexus-voice-desk.onrender.com
+
+I’d value practical feedback: what is the one CRM feature you need most?</textarea><button class="secondary small" data-copy="postLinkedIn">Copy LinkedIn post</button></div>
+<div><label>WhatsApp introduction</label><textarea id="postWhatsApp" rows="5" readonly>Hi! I’m testing NEXUS ClientConnect, a simple browser-based tool to organise prospects, sales stages and follow-ups. It’s useful for freelancers and small businesses that want a straightforward client tracker. The starter version is free to try: https://nexus-voice-desk.onrender.com. If you test it, I’d appreciate honest feedback.</textarea><button class="secondary small" data-copy="postWhatsApp">Copy WhatsApp message</button></div>
+<div class="full"><label>Short social caption</label><textarea id="postShort" rows="3" readonly>Less missed follow-ups. More organised client conversations. Meet NEXUS ClientConnect — a simple browser-based prospect and sales tracker. Try the free starter version: https://nexus-voice-desk.onrender.com #SmallBusiness #Freelancers #CRM #Sales</textarea><button class="secondary small" data-copy="postShort">Copy short caption</button></div></div>
+<div class="notice" style="margin:12px 0 0"><b>Referral tracking limitation:</b> Share links can carry a referral code, but this static version cannot count visits, sign-ups or paying customers on a server. Do not present clicks or shares as verified referrals.</div></section>
 <div class="notice"><b>Privacy & calling:</b> Records are stored only in this browser/device; there is no account, cloud sync or server database. Calls and WhatsApp messages are user-initiated drafts — this app does not auto-call, record, clone voices or send messages in the background. Contact people only with permission or another lawful basis.</div>
 <section class="kpis"><div class="kpi"><b id="kTotal">0</b><span>Total contacts</span></div><div class="kpi"><b id="kLeads">0</b><span>Open opportunities</span></div><div class="kpi"><b id="kFollow">0</b><span>Follow-ups due</span></div><div class="kpi"><b id="kWon">0</b><span>Deals won</span></div><div class="kpi"><b id="kValue">₹0</b><span>Pipeline value</span></div></section>
 <div class="layout"><div class="stack">
@@ -102,5 +116,10 @@ function shareApp(){let key='nexus_cc_share_code',code=localStorage.getItem(key)
 const productPitch='NEXUS ClientConnect is a focused client and sales workspace for freelancers and small businesses. Track prospects, sales stages, follow-ups and communication drafts in one place. The current starter version runs in your browser and supports CSV/JSON export. Cloud accounts, team collaboration and paid subscriptions are planned, not currently available. Try it: https://nexus-voice-desk.onrender.com';
 $('copyPitch').onclick=async()=>{try{await navigator.clipboard.writeText(productPitch);alert('Product pitch copied. Share it with potential customers.')}catch(e){prompt('Copy this product pitch:',productPitch)}};
 $('shareSales').onclick=shareApp;
+\n
+// Capture a referral token locally for future attribution integration; no server-side tracking is active.
+const incomingRef=new URLSearchParams(location.search).get('ref');
+if(incomingRef&&/^[a-zA-Z0-9-]{3,40}$/.test(incomingRef)){localStorage.setItem('nexus_cc_incoming_ref',incomingRef)}
+$('launchKit').addEventListener('click',async e=>{const b=e.target.closest('button[data-copy]');if(!b)return;const el=$(b.dataset.copy);if(!el)return;try{await navigator.clipboard.writeText(el.value);b.textContent='Copied ✓';setTimeout(()=>b.textContent='Copy '+(b.dataset.copy==='postLinkedIn'?'LinkedIn post':b.dataset.copy==='postWhatsApp'?'WhatsApp message':'short caption'),1600)}catch(err){el.focus();el.select();alert('Select and copy the text manually.')}});
 \nrender();if(clients.length)log('Workspace opened');
 </script></body></html>
