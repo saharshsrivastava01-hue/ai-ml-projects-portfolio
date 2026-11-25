@@ -2,8 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07111f">
-<meta name="description" content="NEXUS ClientConnect — local-first client relationship and sales workspace.">
-<title>NEXUS ClientConnect | Business CRM</title>
+<meta name="description" content="NEXUS ClientConnect is a simple client relationship workspace for independent professionals and small businesses. Track prospects, sales stages and follow-ups.">
+<meta name="keywords" content="free CRM, small business CRM, client management, lead tracker, sales pipeline, follow-up manager">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://nexus-voice-desk.onrender.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NEXUS ClientConnect">
+<meta property="og:title" content="NEXUS ClientConnect — Build better client relationships">
+<meta property="og:description" content="Track prospects, sales opportunities and follow-ups in one practical workspace.">
+<meta property="og:url" content="https://nexus-voice-desk.onrender.com/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NEXUS ClientConnect">
+<meta name="twitter:description" content="A practical client and sales workspace for independent professionals and small businesses.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NEXUS ClientConnect","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"A local-first client relationship and sales pipeline workspace.","url":"https://nexus-voice-desk.onrender.com/","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"}}</script>
+<title>NEXUS ClientConnect | Client & Sales CRM</title>
 <style>
 :root{color-scheme:dark;--bg:#07111f;--panel:#101e31;--panel2:#14263d;--line:#29415f;--text:#edf4ff;--muted:#9aacc4;--blue:#82b2ff;--green:#8bd6b0;--amber:#f2cf83;--red:#f09aa5;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#1b3760 0,transparent 38%),var(--bg);color:var(--text);min-height:100vh}header{border-bottom:1px solid var(--line);background:#0b1728ed;padding:17px max(18px,calc((100% - 1260px)/2));position:sticky;top:0;z-index:5;backdrop-filter:blur(14px)}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px}.mark{width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,#a8cbff,#477fe8);display:grid;place-items:center;color:#08172b;font-weight:950;font-size:19px}.brandname{font-size:19px;font-weight:850}.brandname span{color:var(--blue)}.tag{font-size:11px;color:var(--muted);margin-top:3px}.topright{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.badge{border:1px solid #365476;color:#c4dcff;background:#12243b;border-radius:30px;padding:7px 10px;font-size:10px}
@@ -18,7 +30,7 @@ footer{max-width:1260px;margin:auto;padding:0 20px 25px;color:#7286a2;font-size:
 <body>
 <header><div class="top"><div class="brand"><div class="mark">N</div><div><div class="brandname">NEXUS <span>ClientConnect</span></div><div class="tag">Professional conversations. Better client relationships.</div></div></div><div class="topright"><span class="badge">LOCAL-FIRST CRM</span><button class="secondary small" id="exportTop">Export backup</button><button class="ghost small" id="importTop">Import backup</button><input id="importFile" type="file" accept=".json,application/json" class="hidden"></div></div></header>
 <main>
-<section class="hero"><div><div class="eyebrow">Client relationship command centre</div><h1>Build trust. Track every opportunity.</h1><p>A practical workspace for prospects, sales pipelines, follow-ups, communication drafts and business activity — with your data kept in this browser.</p></div><div class="hero-actions"><button id="jumpAdd">＋ Add prospect</button><button class="secondary" id="csvBtn">Download CSV</button></div></section>
+<section class="hero"><div><div class="eyebrow">Client relationship command centre</div><h1>Build trust. Track every opportunity.</h1><p>A practical workspace for prospects, sales pipelines, follow-ups, communication drafts and business activity — with your data kept in this browser.</p></div><div class="hero-actions"><button id="jumpAdd">＋ Add prospect</button><button class="secondary" id="csvBtn">Download CSV</button><button class="ghost" id="shareApp">Share NEXUS</button></div></section>
 <div class="notice"><b>Privacy & calling:</b> Records are stored only in this browser/device; there is no account, cloud sync or server database. Calls and WhatsApp messages are user-initiated drafts — this app does not auto-call, record, clone voices or send messages in the background. Contact people only with permission or another lawful basis.</div>
 <section class="kpis"><div class="kpi"><b id="kTotal">0</b><span>Total contacts</span></div><div class="kpi"><b id="kLeads">0</b><span>Open opportunities</span></div><div class="kpi"><b id="kFollow">0</b><span>Follow-ups due</span></div><div class="kpi"><b id="kWon">0</b><span>Deals won</span></div><div class="kpi"><b id="kValue">₹0</b><span>Pipeline value</span></div></section>
 <div class="layout"><div class="stack">
@@ -79,5 +91,5 @@ function importData(file){if(!file)return;if(file.size>2*1024*1024){alert('Backu
 $('importTop').onclick=$('importBtn').onclick=()=>$('importFile').click();$('importFile').onchange=e=>{importData(e.target.files[0]);e.target.value=''};
 $('deleteAll').onclick=()=>{if(confirm('Delete every client record and activity entry from this browser? This cannot be undone.')){clients=[];activity=[];localStorage.removeItem(KEY);localStorage.removeItem(ACT);resetForm();render()}};
 $('clearActivity').onclick=()=>{if(confirm('Clear the activity log?')){activity=[];localStorage.removeItem(ACT);renderActivity()}};
-render();if(clients.length)log('Workspace opened');
+function shareApp(){let key='nexus_cc_share_code',code=localStorage.getItem(key);if(!code){code='ncc-'+Math.random().toString(36).slice(2,9);localStorage.setItem(key,code)}let url=location.origin+location.pathname+'?ref='+encodeURIComponent(code);let text='Try NEXUS ClientConnect — a practical workspace to manage prospects, sales opportunities and follow-ups.';if(navigator.share){navigator.share({title:'NEXUS ClientConnect',text,url}).catch(()=>{})}else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text+' '+url).then(()=>alert('Share link copied. Send it to a business owner.')).catch(()=>alert('Copy unavailable. Share this link: '+url))}else{prompt('Copy this share link:',url)}}\n$('shareApp').onclick=shareApp;\nrender();if(clients.length)log('Workspace opened');
 </script></body></html>
